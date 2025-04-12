@@ -20,7 +20,7 @@ import time
 import datetime
 
 from data_scraper import parse_messages_json
-import requests
+from security import safe_requests
 
 # References and work credits: https://mccormickml.com/2019/07/22/BERT-fine-tuning/
 
@@ -273,7 +273,7 @@ def predict_real_data(symbol):
 
     messages = []
 
-    response = requests.get(api_url + f"{symbol}.json", headers)
+    response = safe_requests.get(api_url + f"{symbol}.json", headers)
     if response.status_code == 200:
         print("GET messages/posts success")
         messages = messages + parse_messages_json(response.content)
