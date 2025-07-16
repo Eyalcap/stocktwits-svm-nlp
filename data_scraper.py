@@ -1,10 +1,10 @@
-import requests
 import json
 import time
 import csv
 import sys
 import os
 from enum import Enum
+from security import safe_requests
 
 
 class Label(Enum):
@@ -94,7 +94,7 @@ class DataScrapper:
             'referer': 'https://google.com',
         }
 
-        response = requests.get(api_url, headers)
+        response = safe_requests.get(api_url, headers)
         if response.status_code == 200:
             print("GET trending symbols success.")
             json_data = json.loads(response.content)
@@ -125,7 +125,7 @@ class DataScrapper:
         messages = []
         if symbols is not None:
             for symbol in symbols:
-                response = requests.get(api_url + f"{symbol}.json", headers)
+                response = safe_requests.get(api_url + f"{symbol}.json", headers)
                 if response.status_code == 200:
                     print("GET messages/posts success")
                     messages = messages + parse_messages_json(response.content)
