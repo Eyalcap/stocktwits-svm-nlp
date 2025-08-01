@@ -1,4 +1,4 @@
-import random
+import secrets
 
 
 # averaging the embeddings between 2 words
@@ -118,7 +118,7 @@ def standardize_by_averaging(tokens, embeddings, std_length=10):
             continue
 
         length = len(tokens)
-        index = random.randint(1, length - 1)  # uses randomizer so to vary the averaging place
+        index = secrets.SystemRandom().randint(1, length - 1)  # uses randomizer so to vary the averaging place
 
         embed1 = embeddings[index]
         embed2 = embeddings[index - 1]
