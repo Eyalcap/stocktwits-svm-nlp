@@ -1,6 +1,5 @@
 import os
 import torch
-import random
 import numpy as np
 import pandas as pd
 from transformers import BertTokenizer
@@ -21,6 +20,7 @@ import datetime
 
 from data_scraper import parse_messages_json
 import requests
+import secrets
 
 # References and work credits: https://mccormickml.com/2019/07/22/BERT-fine-tuning/
 
@@ -139,7 +139,7 @@ class StocktwitsBERT:
         total_steps = len(self.train_data) * epochs
         scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=total_steps)
 
-        random.seed(seed_val)
+        secrets.SystemRandom().seed(seed_val)
         np.random.seed(seed_val)
         torch.manual_seed(seed_val)
         torch.cuda.manual_seed_all(seed_val)
